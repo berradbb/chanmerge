@@ -40,8 +40,27 @@ from chanmerge import auto_merge_obs
 auto_merge_obs(
     ra="13:25:27.6", 
     dec="-43:01:09", 
-    radius_arcmin=15.0
+    energy_band="hard",
+    radius_arcmin=15.0,
+    outdir="chanmerge-test"
 )
+```
+
+### Coordinate Formats (Important!)
+The `ra` and `dec` parameters accept coordinates as strings. You can provide them in two different ways:
+
+1. **Sexagesimal (Recommended):** Just pass the standard string format.
+   ```python
+   ra="13:25:27.6", dec="-43:01:09"
+   ```
+
+2. **Decimal Degrees:** If you prefer using decimal coordinates, you **must append a `d`** at the end of the string so the backend parser knows it is a degree.
+   ```python
+   ra="201.342d", dec="-43.0192d"
+   
+```
+
+> **WARNING:** If you input a raw decimal string without the `d` suffix (e.g., `ra="201.342"`), the pipeline will default to parsing the Right Ascension as *hours* instead of degrees. This will not crash the script, but it will cause the telescope to query an entirely wrong region of the sky!
 ```
 ---
 

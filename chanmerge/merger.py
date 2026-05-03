@@ -17,8 +17,11 @@ def auto_merge_obs(ra=None, dec=None, radius_arcmin=None, energy_band="broad", o
         with the latest calibrations, and merges it into a flux image.
 
     Required Parameters:
-        ra (str)            : Right Ascension
-        dec (str)           : Declination
+        ra (str)            : Right Ascension. MUST be a sexagesimal string (e.g., "13:25:27.6") 
+                              or explicitly include the degree unit if using decimals (e.g., "201.342d").
+                              WARNING: Raw floats/strings without units (e.g., 201.342) will be parsed as hours!
+        dec (str)           : Declination. MUST be a sexagesimal string (e.g., "-43:01:09")
+                              or explicitly include the degree unit if using decimals (e.g., "-43.0192d").
         radius_arcmin (float): Search radius (arcminutes)
 
     Optional Parameters:
