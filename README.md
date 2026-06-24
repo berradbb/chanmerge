@@ -64,8 +64,8 @@ The `ra` and `dec` parameters accept coordinates as strings. You can provide the
 ```
 ---
 
-## Author
-**Ahmet Sercan Kıyak**  
+## Authors
+**Ahmet Sercan Kıyak & Berra Dülgerbaki**  
 *Boğaziçi University, Department of Physics*
 
 ---
