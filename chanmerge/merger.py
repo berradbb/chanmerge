@@ -127,20 +127,20 @@ def auto_merge_obs(ra=None, dec=None, radius_arcmin=None, energy_band="broad", o
 
     if grating_obs:
         print("\n--- [GRATING OBSERVATIONS DETECTED] ---")
+        print("  [!] NOTE: Grating observations MUST be reprocessed to be masked")
+        print("            and included in the final merged image. If you skip reprocessing,")
+        print("            they will be kept as raw archive data and excluded from merging.")
+        
         ans_down = input(f"> Found {len(grating_obs)} grating (HETG/LETG) observation(s). Do you want to download them? (y/n): ")
         if ans_down.lower() == 'y':
             download_grating = True
-
-            print("\n  [!] NOTE: Grating observations MUST be reprocessed to be masked")
-            print("            and included in the final merged image. If you choose 'n',")
-            print("            they will be kept as raw archive data and excluded from merging.")
 
             ans_repro = input("> Do you want to run 'chandra_repro' on these grating observations? (y/n): ")
             if ans_repro.lower() == 'y':
                 repro_grating = True
         else:
             print("  -> Grating observations will be excluded completely.")
-            grating_obs = [] 
+            grating_obs = []
     
     
     # ==========================================
