@@ -235,6 +235,7 @@ def auto_merge_obs(ra=None, dec=None, radius_arcmin=None, energy_band="broad", o
     # ==========================================
     # MASKING PHASE (Grating Obs Only)
     # ==========================================
+   
     processed_grating_files = []
     
     if repro_grating:
@@ -250,15 +251,14 @@ def auto_merge_obs(ra=None, dec=None, radius_arcmin=None, energy_band="broad", o
                 
                 print(f"  -> Masking ObsID: {obsid}_g")
                 
-                # 1. Create the mask
-                mask_cmd = f"tg_create_mask infile={g_file} outfile={mask_file}"
-                subprocess.run(mask_cmd, shell=True, check=True)
+                # Create the mask
+                subprocess.run(["tg_create_mask", f"infile={g_file}", f"outfile={mask_file}"], check=True)
                 
-                # 2. Exclude pixels
-                dmcopy_cmd = f'dmcopy "{g_file}[exclude sky=region({mask_file})]" {nomask_file}'
-                subprocess.run(dmcopy_cmd, shell=True, check=True)
+                # Filter syntax
+                filter_expression = f"{g_file}[exclude sky=region({mask_file})]"
                 
-                # Save to add the successfully masked file to the merge list.
+                subprocess.run(["dmcopy", filter_expression, nomask_file], check=True)
+                
                 processed_grating_files.append(nomask_file)
             else:
                 print(f"  [!] WARNING: Reprocessed evt2 file not found for {obsid}_g. Skipping mask.")
