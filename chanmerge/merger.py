@@ -247,7 +247,7 @@ def auto_merge_obs(ra=None, dec=None, radius_arcmin=None, energy_band="broad", o
             if evt_files:
                 g_file = evt_files[0] 
                 mask_file = g_file.replace("_evt2.fits", "_mask.fits")
-                nomask_file = g_file.replace("_evt2.fits", "_nomask_evt2.fits")
+                filtered_file = g_file.replace("_evt2.fits", "_filtered_evt2.fits")
                 
                 print(f"  -> Masking ObsID: {obsid}_g")
                 
@@ -257,9 +257,9 @@ def auto_merge_obs(ra=None, dec=None, radius_arcmin=None, energy_band="broad", o
                 # Filter syntax
                 filter_expression = f"{g_file}[exclude sky=region({mask_file})]"
                 
-                subprocess.run(["dmcopy", filter_expression, nomask_file], check=True)
+                subprocess.run(["dmcopy", filter_expression, filtered_file], check=True)
                 
-                processed_grating_files.append(nomask_file)
+                processed_grating_files.append(filtered_file)
             else:
                 print(f"  [!] WARNING: Reprocessed evt2 file not found for {obsid}_g. Skipping mask.")
         
